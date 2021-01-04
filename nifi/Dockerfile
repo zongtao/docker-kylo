@@ -33,9 +33,8 @@ RUN apt-get update && \
     apt-get install -y maven \
                        rpm
 
-RUN git clone https://github.com/italia/kylo.git /opt/kylok8s && \
+RUN git clone https://github.com/zongtao/kylo.git /opt/kylok8s && \
     cd /opt/kylok8s && \
-    git checkout release/0.8.4-daf-kylo && \
     git pull && \
     mvn clean install -DskipTests
 
@@ -47,7 +46,7 @@ RUN cd /opt/kylok8s && \
 
 ##########
 
-FROM govcloud/docker-nifi:1.6.0
+FROM apache/nifi:1.12.1
 LABEL maintainer="William Hearn <william.hearn@canada.ca>"
 LABEL site="https://nifi.apache.org/"
 
@@ -67,18 +66,18 @@ RUN mkdir -p /opt/nifi/activemq && \
     mkdir -p /opt/nifi/drivers
 
 # Kylo JARS
-RUN ln -f -s /opt/nifi/kylo/kylo-nifi-core-service-v1.2-nar-*.nar /opt/nifi/nifi-1.6.0/lib/kylo-nifi-core-service-nar.nar && \
-    ln -f -s /opt/nifi/kylo/kylo-nifi-standard-services-v1.2-nar-*.nar /opt/nifi/nifi-1.6.0/lib/kylo-nifi-standard-services-nar.nar && \
-    ln -f -s /opt/nifi/kylo/kylo-nifi-core-v1.2-nar-*.nar /opt/nifi/nifi-1.6.0/lib/kylo-nifi-core-nar.nar && \
-    ln -f -s /opt/nifi/kylo/kylo-nifi-spark-v1.2-nar-*.nar /opt/nifi/nifi-1.6.0/lib/kylo-nifi-spark-nar.nar && \
-    ln -f -s /opt/nifi/kylo/kylo-nifi-spark-service-v1.2-nar-*.nar /opt/nifi/nifi-1.6.0/lib/kylo-nifi-spark-service-nar.nar && \
-    ln -f -s /opt/nifi/kylo/kylo-nifi-hadoop-v1.2-nar-*.nar /opt/nifi/nifi-1.6.0/lib/kylo-nifi-hadoop-nar.nar && \
-    ln -f -s /opt/nifi/kylo/kylo-nifi-hadoop-service-v1.2-nar-*.nar /opt/nifi/nifi-1.6.0/lib/kylo-nifi-hadoop-service-nar.nar && \
-    ln -f -s /opt/nifi/kylo/kylo-nifi-elasticsearch-v1-nar-*.nar /opt/nifi/nifi-1.6.0/lib/kylo-nifi-elasticsearch-nar.nar && \
-    ln -f -s /opt/nifi/kylo/kylo-nifi-provenance-repo-v1.2-nar-*.nar /opt/nifi/nifi-1.6.0/lib/kylo-nifi-provenance-repo-nar.nar && \
-    ln -f -s /opt/nifi/kylo/kylo-spark-validate-cleanse-spark-v2-*-jar-with-dependencies.jar /opt/nifi/nifi-1.6.0/lib/app/kylo-spark-validate-cleanse-jar-with-dependencies.jar && \
-    ln -f -s /opt/nifi/kylo/kylo-spark-job-profiler-spark-v2-*-jar-with-dependencies.jar /opt/nifi/nifi-1.6.0/lib/app/kylo-spark-job-profiler-jar-with-dependencies.jar && \
-    ln -f -s /opt/nifi/kylo/kylo-spark-interpreter-spark-v2-*-jar-with-dependencies.jar /opt/nifi/nifi-1.6.0/lib/app/kylo-spark-interpreter-jar-with-dependencies.jar && \
+RUN ln -f -s /opt/nifi/kylo/kylo-nifi-core-service-v1.2-nar-*.nar /opt/nifi/nifi-current/lib/kylo-nifi-core-service-nar.nar && \
+    ln -f -s /opt/nifi/kylo/kylo-nifi-standard-services-v1.2-nar-*.nar /opt/nifi/nifi-current/lib/kylo-nifi-standard-services-nar.nar && \
+    ln -f -s /opt/nifi/kylo/kylo-nifi-core-v1.2-nar-*.nar /opt/nifi/nifi-current/lib/kylo-nifi-core-nar.nar && \
+    ln -f -s /opt/nifi/kylo/kylo-nifi-spark-v1.2-nar-*.nar /opt/nifi/nifi-current/lib/kylo-nifi-spark-nar.nar && \
+    ln -f -s /opt/nifi/kylo/kylo-nifi-spark-service-v1.2-nar-*.nar /opt/nifi/nifi-current/lib/kylo-nifi-spark-service-nar.nar && \
+    ln -f -s /opt/nifi/kylo/kylo-nifi-hadoop-v1.2-nar-*.nar /opt/nifi/nifi-current/lib/kylo-nifi-hadoop-nar.nar && \
+    ln -f -s /opt/nifi/kylo/kylo-nifi-hadoop-service-v1.2-nar-*.nar /opt/nifi/nifi-current/lib/kylo-nifi-hadoop-service-nar.nar && \
+    ln -f -s /opt/nifi/kylo/kylo-nifi-elasticsearch-v1-nar-*.nar /opt/nifi/nifi-current/lib/kylo-nifi-elasticsearch-nar.nar && \
+    ln -f -s /opt/nifi/kylo/kylo-nifi-provenance-repo-v1.2-nar-*.nar /opt/nifi/nifi-current/lib/kylo-nifi-provenance-repo-nar.nar && \
+    ln -f -s /opt/nifi/kylo/kylo-spark-validate-cleanse-spark-v2-*-jar-with-dependencies.jar /opt/nifi/nifi-current/lib/app/kylo-spark-validate-cleanse-jar-with-dependencies.jar && \
+    ln -f -s /opt/nifi/kylo/kylo-spark-job-profiler-spark-v2-*-jar-with-dependencies.jar /opt/nifi/nifi-current/lib/app/kylo-spark-job-profiler-jar-with-dependencies.jar && \
+    ln -f -s /opt/nifi/kylo/kylo-spark-interpreter-spark-v2-*-jar-with-dependencies.jar /opt/nifi/nifi-current/lib/app/kylo-spark-interpreter-jar-with-dependencies.jar && \
     wget http://central.maven.org/maven2/org/apache/activemq/activemq-all/5.15.0/activemq-all-5.15.0.jar -P /opt/nifi/activemq/ && \
     wget http://central.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/2.2.4/mariadb-java-client-2.2.4.jar -P /opt/nifi/drivers/
 
