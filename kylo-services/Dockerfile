@@ -66,7 +66,8 @@ COPY --from=kylok8sBuild /opt/kylo /opt/kylo
 USER root
 
 RUN apt-get update && \
-    apt-get install -y mysql-client \
+    apt-get install -y default-mysql-client \
+                       default-libmysqlclient-dev \
                        ca-certificates \
                        libkrb5-dev
 
