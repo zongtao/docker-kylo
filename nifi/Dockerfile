@@ -61,7 +61,7 @@ USER root
 
 RUN mkdir -p /opt/nifi/activemq && \
     mkdir -p /opt/nifi/drivers && \
-    mkdir -p /opt/nifi/nifi-1.6.0/lib/app && \
+    mkdir -p /opt/nifi/nifi-current/lib/app && \
     mkdir -p /opt/nifi/dump && \
     mkdir -p /opt/nifi/drivers
 
@@ -78,8 +78,8 @@ RUN ln -f -s /opt/nifi/kylo/kylo-nifi-core-service-v1.2-nar-*.nar /opt/nifi/nifi
     ln -f -s /opt/nifi/kylo/kylo-spark-validate-cleanse-spark-v2-*-jar-with-dependencies.jar /opt/nifi/nifi-current/lib/app/kylo-spark-validate-cleanse-jar-with-dependencies.jar && \
     ln -f -s /opt/nifi/kylo/kylo-spark-job-profiler-spark-v2-*-jar-with-dependencies.jar /opt/nifi/nifi-current/lib/app/kylo-spark-job-profiler-jar-with-dependencies.jar && \
     ln -f -s /opt/nifi/kylo/kylo-spark-interpreter-spark-v2-*-jar-with-dependencies.jar /opt/nifi/nifi-current/lib/app/kylo-spark-interpreter-jar-with-dependencies.jar && \
-    wget http://central.maven.org/maven2/org/apache/activemq/activemq-all/5.15.0/activemq-all-5.15.0.jar -P /opt/nifi/activemq/ && \
-    wget http://central.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/2.2.4/mariadb-java-client-2.2.4.jar -P /opt/nifi/drivers/
+    wget https://repo1.maven.org/maven2/org/apache/activemq/activemq-all/5.15.0/activemq-all-5.15.0.jar -P /opt/nifi/activemq/ && \
+    wget https://repo1.maven.org/maven2/org/mariadb/jdbc/mariadb-java-client/2.2.4/mariadb-java-client-2.2.4.jar -P /opt/nifi/drivers/
 
 # Impala JDBC driver
 RUN wget -q https://downloads.cloudera.com/connectors/impala_jdbc_2.5.42.1062.zip && \
