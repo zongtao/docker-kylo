@@ -42,7 +42,7 @@ RUN cd /opt/kylok8s && \
     mkdir install/install-tar/target/kylo && \
     tar -C install/install-tar/target/kylo -xvf install/install-tar/target/kylo-*-dependencies.tar.gz && \
     mkdir -p /opt/nifi/kylo && \
-    cp -a install/setup/nifi/. /opt/nifi/kylo
+    cp -a install/install-tar/target/kylo/setup/nifi/. /opt/nifi/kylo
 
 ##########
 
